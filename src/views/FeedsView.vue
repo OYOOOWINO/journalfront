@@ -21,9 +21,9 @@
                                     <v-card flat color="indigo lighten-5">
                                         <v-card-text class="pb-1">
                                             <p class="subtitle  lighten-3">
-                                                <!-- <v-icon color="indigo lighten-4">mdi-clock</v-icon> <span
+                                                <v-icon color="indigo lighten-4">mdi-clock</v-icon> <span
                                                     class="indigo--text lighten-2"> {{  (new Date(item.created_at)).toLocaleString()   }}</span>
-                                                <br> -->
+                                                <br>
                                                 <span class="ml-2">{{  item.content  }}</span>
                                             </p>
                                         </v-card-text>
