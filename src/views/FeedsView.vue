@@ -16,14 +16,14 @@
                         </v-toolbar>
                         <v-card-text>
                             <v-row>
-                                <v-col class="" v-for="item in journals" :key="item._id" cols="12"
+                                <v-col class="" v-for="item in feeds" :key="item._id" cols="12"
                                     md="4">
                                     <v-card flat color="indigo lighten-5">
                                         <v-card-text class="pb-1">
                                             <p class="subtitle  lighten-3">
-                                                <v-icon color="indigo lighten-4">mdi-clock</v-icon> <span
+                                                <!-- <v-icon color="indigo lighten-4">mdi-clock</v-icon> <span
                                                     class="indigo--text lighten-2"> {{  (new Date(item.created_at)).toLocaleString()   }}</span>
-                                                <br>
+                                                <br> -->
                                                 <span class="ml-2">{{  item.content  }}</span>
                                             </p>
                                         </v-card-text>
@@ -51,8 +51,8 @@ export default {
         this.getData();
     },
     computed: {
-        journals() {
-            return this.$store.getters.journals;
+        feeds() {
+            return this.$store.state.feeds;
         }
     },
     data: () => ({
@@ -63,7 +63,7 @@ export default {
 
         getData() {
 
-            this.$store.dispatch('getJournals')
+            this.$store.dispatch('getFeeds')
         }
 
 

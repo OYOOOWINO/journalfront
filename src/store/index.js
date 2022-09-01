@@ -15,7 +15,8 @@ export default new Vuex.Store({
     msg: "no msg",
     loginOK: false,
     postSaved: false,
-    journals: []
+    journals: [],
+    feeds: []
   },
 
   getters: {
@@ -101,9 +102,13 @@ export default new Vuex.Store({
       router.push("/");
     },
 
+    setFeeds(state, payload) {
+      state.feeds = payload
+    },
   },
 
   actions: {
+
       async save(context, payload) {
       let user = JSON.parse(sessionStorage.getItem("user"));
       let data = {
@@ -223,6 +228,32 @@ export default new Vuex.Store({
         if (error.response) {
           context.commit("setErrorState", true);
           context.commit("setMsg", error.response.data.message);
+        }
+      }
+    },
+
+    async getFeeds(context) {
+      let user = JSON.parse(sessionStorage.getItem("user"));
+      // console.log(user);
+      let data = {
+        _id: user._id
+      };
+
+      let bearer = "Bearer " + user.authToken
+      try {
+        const response = await api.post("/feed/get", data, {
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "Authorization": bearer
+          }
+        });
+        if (response.status == 200) {
+          context.commit("setFeeds", response.data.feeds);
+        }
+      } catch (error) {
+        if (error.response) {
+          console.log(error.response);
         }
       }
     },
