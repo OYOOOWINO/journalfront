@@ -199,6 +199,7 @@ export default new Vuex.Store({
         if (error.response) {
           context.commit("setErrorState", true);
           context.commit("setMsg", error.response.data.message);
+          console.log(error);
         }
       }
     },
