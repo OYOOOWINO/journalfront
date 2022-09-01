@@ -2,20 +2,39 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
+function routeGuard(to, from, next) {
+  let isAuthenticated = false;
+  let logedIn = JSON.parse(sessionStorage.getItem('login'))
+
+  if (logedIn == true) {
+    isAuthenticated = true;
+  }
+
+  if (isAuthenticated) {
+    next();
+  }
+  else {
+    next('/login');
+  }
+}
+
 const routes = [
   {
     path: '/feeds',
     name: 'feeds',
+    beforeEnter : routeGuard,
     component: () => import('../views/FeedsView.vue')
   },
   {
     path: '/journals',
     name: 'journal',
+    beforeEnter : routeGuard,
     component: () => import('../views/UserJournalsView.vue')
   },
   {
     path: '/new',
     name: 'new',
+    beforeEnter : routeGuard,
     component: () => import('../views/JournalView.vue')
   },
   {
